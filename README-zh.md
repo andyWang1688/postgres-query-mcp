@@ -144,14 +144,14 @@ export MYSQL_CONN_CRM_PROD_MUQIAO_RO='mysql://user:password@host:3306/crm'
 
 ## 贡献
 
-这个仓库目前还没有单独的 `CONTRIBUTING.md`，但你在准备变更时仍然可以遵
-循现有的项目工作流。
+如果你想参与贡献或查看仓库协作流程，可以先从下面这些页面开始。
 
-- 阅读 `AGENT.md` 了解本地工作规则。
-- 阅读 `docs/git-workflow.md` 了解仓库的 Git 流程。
-- 在提交变更前运行 `PYTHONPATH=. python3 -m unittest discover -s tests`。
+- `CONTRIBUTING.md`
+- `docs/roadmap.md`
+- `docs/git-workflow.md`
+
+在提交变更前运行 `PYTHONPATH=. python3 -m unittest discover -s tests`。
 
 ## 许可证
 
-这个仓库目前还没有单独的 `LICENSE` 文件。如果你计划重新分发它，或将它用
-于商业用途，请先补充明确的许可证。
+本项目采用 MIT 许可证，详见 `LICENSE`。

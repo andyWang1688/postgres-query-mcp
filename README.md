@@ -2,7 +2,8 @@
 
 [中文版](README-zh.md)
 
-A general-purpose MCP server that lets AI work with multiple databases within clear boundaries.
+A general-purpose MCP server that lets AI work with multiple databases within
+clear boundaries.
 
 ## Current database support
 
@@ -89,17 +90,23 @@ pip install -e .
 cp config/connections.example.json config/connections.json
 ```
 
-3. Set the environment variables that hold your database DSNs.
+3. Export your database DSNs as environment variables.
+
+These example names match the copied `config/connections.example.json` file.
 
 ```bash
 export PG_CONN_CRM_PROD_MUQIAO_RO='postgresql://user:password@host:5432/dbname'
 export MYSQL_CONN_CRM_PROD_MUQIAO_RO='mysql://user:password@host:3306/crm'
+export SQL_QUERY_MCP_CONFIG='/absolute/path/to/sql-query-mcp/config/connections.json'
 ```
 
 4. Register the server in your MCP client.
 
 - Codex: `docs/codex-setup.md` (Chinese)
 - OpenCode: `docs/opencode-setup.md` (Chinese)
+
+The console entry point is `sql-query-mcp`, which maps to
+`sql_query_mcp.app:main`.
 
 The default config path is `config/connections.json`. If you need a different
 location, set `SQL_QUERY_MCP_CONFIG`.
@@ -153,15 +160,16 @@ these docs as your starting points.
 
 ## Contributing
 
-This repository does not yet have a standalone `CONTRIBUTING.md`, but you can
-still follow the existing project workflow when preparing changes.
+If you want to contribute or review the repository workflow, start with these
+pages.
 
-- Read `AGENT.md` for local working rules.
-- Read `docs/git-workflow.md` for the repository Git process.
-- Run `PYTHONPATH=. python3 -m unittest discover -s tests` before you submit
-  changes.
+- `CONTRIBUTING.md`
+- `docs/roadmap.md`
+- `docs/git-workflow.md` (Chinese)
+
+Run `PYTHONPATH=. python3 -m unittest discover -s tests` before you submit
+changes.
 
 ## License
 
-This repository does not currently include a standalone `LICENSE` file. If you
-plan to redistribute or use it commercially, add an explicit license first.
+This project is released under the MIT License. See `LICENSE`.
