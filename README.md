@@ -81,8 +81,12 @@ these steps.
 python3.10 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
-pip install -e .
+pip install sql-query-mcp
 ```
+
+Install a specific release with `pip install sql-query-mcp==X.Y.Z` if you want
+to pin a version. Published release artifacts are also attached to each GitHub
+Release.
 
 2. Copy the example connection config.
 
@@ -107,6 +111,9 @@ export SQL_QUERY_MCP_CONFIG='/absolute/path/to/sql-query-mcp/config/connections.
 
 The console entry point is `sql-query-mcp`, which maps to
 `sql_query_mcp.app:main`.
+
+The PyPI install name is `sql-query-mcp`, and the Python package import path is
+`sql_query_mcp`.
 
 The default config path is `config/connections.json`. If you need a different
 location, set `SQL_QUERY_MCP_CONFIG`.
@@ -156,7 +163,30 @@ these docs as your starting points.
 - `docs/api-reference.md`: MCP tool reference (Chinese)
 - `docs/codex-setup.md`: Codex setup steps (Chinese)
 - `docs/opencode-setup.md`: OpenCode setup steps (Chinese)
+- `docs/release-process.md`: PyPI and GitHub Release workflow (Chinese)
 - `docs/git-workflow.md`: repository collaboration workflow (Chinese)
+
+## Development
+
+If you want to modify or verify the project locally, use this shortest path.
+Editable install remains the development path, and the local environment still
+requires Python 3.10+.
+
+```bash
+python3.10 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+pip install -e .
+PYTHONPATH=. python3 -m unittest discover -s tests
+```
+
+The main entry point is `sql_query_mcp/app.py`. Core modules include:
+
+- `sql_query_mcp/config.py`: config loading and validation
+- `sql_query_mcp/validator.py`: read-only SQL validation
+- `sql_query_mcp/introspection.py`: metadata inspection
+- `sql_query_mcp/executor.py`: query execution and limits
+- `sql_query_mcp/adapters/`: PostgreSQL and MySQL adapters
 
 ## Contributing
 

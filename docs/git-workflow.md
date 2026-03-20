@@ -27,7 +27,7 @@
 | `main` | 生产分支 | 不直接提交，不直接 push |
 | `develop` | 默认开发集成分支 | 新功能的合并目标 |
 | `feature/<name>` | 新功能开发 | 从 `develop` 创建，完成后合并回 `develop` |
-| `release/<version>` | 发布准备 | 从 `develop` 创建，用于收口测试和版本整理 |
+| `release/vX.Y.Z` | 发布准备 | 从 `develop` 创建，用于收口测试和版本整理 |
 | `hotfix/<issue-id>` | 紧急修复 | 从 `main` 创建，完成后同时合并回 `main` 和 `develop` |
 
 ## 日常开发流程
@@ -49,14 +49,14 @@ git checkout -b feature/query-audit-improvements
 
 ## 发布流程
 
-如果你准备发版，必须通过 `release/<version>` 分支收口，不要直接把
+如果你准备发版，必须通过 `release/vX.Y.Z` 分支收口，不要直接把
 `develop` 合并到 `main`。
 
-1. 从 `develop` 创建 `release/<version>`。
+1. 从 `develop` 创建 `release/vX.Y.Z`。
 2. 在 `release` 分支完成版本号调整、最终测试和发布修复。
-3. 用 `release` 分支产物完成生产部署。
-4. 确认部署成功后，通过 PR 或 MR 把 `release` 合并到 `main` 并打 tag。
-5. 再把同一个 `release` 分支通过 PR 或 MR 回合并到 `develop`。
+3. 先 push `release/vX.Y.Z` 分支，再为同一提交创建 `vX.Y.Z` tag。
+4. 由 GitHub Actions 自动完成 PyPI 发布和 GitHub Release 更新。
+5. 发布成功后，自动创建回合并到 `main` 和 `develop` 的 PR。
 
 示例命令如下。
 
@@ -66,15 +66,22 @@ git pull
 git checkout -b release/v1.2.0
 ```
 
-发布完成后的关键同步步骤如下。
+发布触发和同步步骤如下。这里保留分支命名和版本标签的固定格式，便于自动化
+校验分支、tag 和 `pyproject.toml` 版本号是否一致。
 
-1. 创建 `release/v1.2.0 -> main` 的 PR 或 MR。
-2. 等待必要的评审、分支保护检查和 CI 通过后，再合并到 `main`。
-3. 在 `main` 的发布合并结果上创建 `v1.2.0` tag，并推送该 tag。
-4. 再创建 `release/v1.2.0 -> develop` 的 PR 或 MR，确保发布期间的整理提交回到开发线。
+```bash
+git checkout release/v1.2.0
+git push origin release/v1.2.0
+git tag -a v1.2.0 -m "Release version 1.2.0"
+git push origin v1.2.0
+```
 
-如果仓库对 `main` 或 `develop` 启用了受保护分支规则，就按受保护分支流程完
-成，不要为了省步骤改成直接 push。
+随后由 GitHub Actions 自动发布到 PyPI、更新 GitHub Release，并创建回合并
+到 `main` 和 `develop` 的 Pull Request。分支同步通过 PR 完成，不再使用这里
+的手工 merge 命令作为正式发布路径。
+
+如果仓库对 `main` 或 `develop` 启用了受保护分支规则，就继续通过自动创建的
+回合并 PR 完成同步，不要为了省步骤改成直接 push。
 
 ## 紧急修复流程
 
