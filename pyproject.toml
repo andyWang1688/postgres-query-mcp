@@ -11,7 +11,7 @@ requires-python = ">=3.10"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [{ name = "Andy Wang" }]
-keywords = ["mcp", "mcp-server", "sql", "postgresql", "mysql", "codex", "chatgpt"]
+keywords = ["mcp", "mcp-server", "sql", "database", "postgresql", "mysql", "cli", "codex", "chatgpt"]
 classifiers = [
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
@@ -20,7 +20,7 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Topic :: Database",
-  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Environment :: Console",
 ]
 dependencies = [
   "mcp>=1.12.4",
@@ -34,7 +34,7 @@ dependencies = [
 [project.urls]
 Homepage = "https://github.com/andyWang1688/sql-query-mcp"
 Repository = "https://github.com/andyWang1688/sql-query-mcp"
-Documentation = "https://github.com/andyWang1688/sql-query-mcp/tree/main/docs"
+Documentation = "https://github.com/andyWang1688/sql-query-mcp/blob/main/README.md"
 Issues = "https://github.com/andyWang1688/sql-query-mcp/issues"
 
 [project.scripts]
